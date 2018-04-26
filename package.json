@@ -1,0 +1,28 @@
+{
+  "name": "talky_api",
+  "version": "1.0.0",
+  "description": "Talky chat app API",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/hardikpatel0884/Talky_API.git"
+  },
+  "author": "null plus",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/hardikpatel0884/Talky_API/issues"
+  },
+  "homepage": "https://github.com/hardikpatel0884/Talky_API#readme",
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "body-parser": "^1.18.2",
+    "express": "^4.16.3",
+    "mysql": "^2.15.0",
+    "passport": "^0.4.0",
+    "passport-local": "^1.0.0"
+  }
+}
