@@ -8,6 +8,7 @@
 module.exports = {
     /** port number to run application */
     port: process.env.PORT || 3000,
+    logPath: './logfile/server.log',
 
     /** mysql connection properties */
     mysql: {

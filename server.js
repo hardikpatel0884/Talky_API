@@ -27,7 +27,7 @@ const express = require("express"),
 /* server request logfile */
 app.use((req, res, next) => {
     var log = `${new Date().toString()} : ${req.method} ${req.url} \n`;
-    fs.appendFile('./logfile/server.log', log);
+    fs.appendFile(config.logPath, log);
     next();
 });
 
@@ -35,17 +35,33 @@ app.use(bodyparser());
 /* connect with database */
 connection.connect();
 
-app.get("/", (req, res) => {
-    res.send("Welcome To Talky")
+function mysqlPromise(sql) {
+    return new Promise(function(resolve, reject) {
+        connection.query(sql, (err, res) => {
+            if (!err) {
+                return resolve(res);
+            }
+            reject(err);
+        })
+    });
+}
+
+/** user routes */
+//require('./route/userRoute')(app, connection, fs);
+
+app.post('/user/register', (req, res) => {
+    let sql = "insert into UserMaster ('userId', 'fullName', 'otp', 'profile', 'deviceId') VALUES(" + req.body.phone + ",'" + req.body.fullName + "','123','" + req.body.profile + "','" + req.body.deviceId + "')"
+    console.log("reqgister user : " + sql);
+    mysqlPromise(sql).then((result) => {
+        if (result) {
+            res.status(200).send(result);
+        } else {
+            res.status(400).send("something wrong");
+        }
+    }).catch((err) => {
+        res.status(200).send(err);
+    });
 });
-
-/**
- * POST : /user/register
- * param {String} userId phonenumber of user
- */
-app.post("/user/register", (req, res) => {
-
-})
 
 /* set application port */
 app.listen(config.port, () => {
